@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h5>Create New Email Campaign</h5>
+    </div>
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label>Campaign Name</label>
+                <input type="text" name="campaign_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email Subject</label>
+                <input type="text" name="subject" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Email Body (Use {name} for recipient name)</label>
+                <textarea name="email_body" rows="10" class="form-control" required>Dear Dr. {name},
+
+Greetings from the Conference!
+
+We are pleased to invite you to serve as a speaker.
+
+Thank you,
+Kevin Sephora</textarea>
+            </div>
+            <div class="mb-3">
+                <label>CSV File (must have 'author' and 'email' columns)</label>
+                <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Campaign</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

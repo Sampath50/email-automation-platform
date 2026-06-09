@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-warning">
+                <h5>Pending Approvals ({{ pending_users|length }})</h5>
+            </div>
+            <div class="card-body">
+                {% if pending_users %}
+                    <div class="list-group">
+                        {% for user in pending_users %}
+                            <div class="list-group-item">
+                                <strong>{{ user.username }}</strong> - {{ user.email }}
+                                <div class="float-end">
+                                    <a href="{{ url_for('approve_user', user_id=user.id) }}" 
+                                       class="btn btn-sm btn-success">Approve</a>
+                                    <a href="{{ url_for('reject_user', user_id=user.id) }}" 
+                                       class="btn btn-sm btn-danger">Reject</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No pending approvals</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-header bg-success text-white">
+                <h5>Approved Users ({{ approved_users|length }})</h5>
+            </div>
+            <div class="card-body">
+                <ul>
+                    {% for user in approved_users %}
+                        <li>{{ user.username }} - {{ user.email }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Recent Campaigns</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Campaign</th>
+                    <th>Recipients</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in campaigns %}
+                <tr>
+                    <td>{{ campaign.user.username }}</td>
+                    <td>{{ campaign.campaign_name }}</td>
+                    <td>{{ campaign.sent_count }}/{{ campaign.total_recipients }}</td>
+                    <td>{{ campaign.status }}</td>
+                    <td>{{ campaign.created_at.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

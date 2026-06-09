@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Send Email Campaign</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Your Gmail Address</label>
+                        <input type="email" name="email_address" class="form-control" 
+                               value="{{ current_user.email_address or '' }}" required>
+                        <small class="text-muted">Use your Gmail address</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Gmail App Password</label>
+                        <input type="password" name="email_password" class="form-control" required>
+                        <small class="text-muted">
+                            <a href="https://myaccount.google.com/apppasswords" target="_blank">
+                                Generate App Password here
+                            </a>
+                        </small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email Subject</label>
+                        <input type="text" name="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email Body</label>
+                        <textarea name="email_body" rows="10" class="form-control" required>
+Dear {name},
+
+Greetings from the Conference!
+
+We are pleased to invite you to serve as a speaker.
+
+Thank you,
+Conference Team</textarea>
+                        <small class="text-muted">Use {name} to insert recipient name</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">CSV File</label>
+                        <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+                        <small class="text-muted">CSV must have columns: author, email</small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Send Campaign</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

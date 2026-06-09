@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Campaigns</h2>
+
+<div class="card">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Campaign Name</th>
+                    <th>Subject</th>
+                    <th>Sent/Failed</th>
+                    <th>Status</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in campaigns %}
+                <tr>
+                    <td>{{ campaign.campaign_name }}</td>
+                    <td>{{ campaign.subject[:50] }}...</td>
+                    <td>{{ campaign.sent_count }}/{{ campaign.failed_count }}</td>
+                    <td>
+                        <span class="badge bg-{{ 'success' if campaign.status == 'completed' else 'warning' if campaign.status == 'sending' else 'secondary' }}">
+                            {{ campaign.status }}
+                        </span>
+                    </td>
+                    <td>{{ campaign.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        <a href="{{ url_for('view_logs', campaign_id=campaign.id) }}" class="btn btn-sm btn-info">
+                            View Details
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

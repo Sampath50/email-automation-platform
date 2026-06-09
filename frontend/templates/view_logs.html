@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Campaign Details: {{ campaign.campaign_name }}</h2>
+
+<div class="row mb-3">
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h6>Total Recipients</h6>
+                <h3>{{ campaign.total_recipients }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h6>Sent Successfully</h6>
+                <h3>{{ campaign.sent_count }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-danger text-white">
+            <div class="card-body">
+                <h6>Failed</h6>
+                <h3>{{ campaign.failed_count }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <h6>Status</h6>
+                <h3>{{ campaign.status }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Email Delivery Logs</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Recipient Email</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Error Message</th>
+                        <th>Sent Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log.recipient_email }}</td>
+                        <td>{{ log.recipient_name }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if log.status == 'sent' else 'danger' }}">
+                                {{ log.status }}
+                            </span>
+                        </td>
+                        <td>{{ log.error_message or '-' }}</td>
+                        <td>{{ log.sent_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<a href="{{ url_for('campaign_logs') }}" class="btn btn-secondary mt-3">Back to Campaigns</a>
+{% endblock %}

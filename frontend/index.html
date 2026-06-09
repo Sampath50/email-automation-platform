@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="display-4">Email Automation System</h1>
+    <p class="lead">Manage and send bulk emails efficiently</p>
+    <hr class="my-4">
+    <p>Please login to access the admin portal</p>
+    <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Login</a>
+</div>
+{% endblock %}

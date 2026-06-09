@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-primary text-white mb-3">
+            <div class="card-body">
+                <h5>Total Campaigns</h5>
+                <h2>{{ total_campaigns }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-success text-white mb-3">
+            <div class="card-body">
+                <h5>Total Emails Sent</h5>
+                <h2>{{ total_sent }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Email Campaigns</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Recipients</th>
+                        <th>Sent/Failed</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for campaign in campaigns %}
+                    <tr>
+                        <td>{{ campaign.campaign_name }}</td>
+                        <td>{{ campaign.subject[:50] }}</td>
+                        <td>{{ campaign.total_recipients }}</td>
+                        <td>{{ campaign.sent_count }}/{{ campaign.failed_count }}</td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if campaign.status == 'completed' else 'warning' if campaign.status == 'sending' else 'secondary' }}">
+                                {{ campaign.status }}
+                            </span>
+                        </td>
+                        <td>{{ campaign.created_at.strftime('%Y-%m-%d') }}</td>
+                        <td>
+                            {% if campaign.status == 'pending' %}
+                            <form method="POST" action="{{ url_for('send_campaign', campaign_id=campaign.id) }}" style="display:inline">
+                                <button type="submit" class="btn btn-sm btn-success">Send</button>
+                            </form>
+                            {% endif %}
+                            <a href="{{ url_for('campaign_logs', campaign_id=campaign.id) }}" class="btn btn-sm btn-info">Logs</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
