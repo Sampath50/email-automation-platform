@@ -2,7 +2,44 @@
 {% block content %}
 <h2>Admin Dashboard</h2>
 
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5>Total Users</h5>
+                <h2>{{ approved_users|length + pending_users|length }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <h5>Pending Approvals</h5>
+                <h2>{{ pending_users|length }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5>Active Users</h5>
+                <h2>{{ approved_users|length }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5>Total Campaigns</h5>
+                <h2>{{ campaigns|length }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
+    <!-- Pending Approvals Section -->
     <div class="col-md-6">
         <div class="card mb-3">
             <div class="card-header bg-warning">
@@ -10,18 +47,34 @@
             </div>
             <div class="card-body">
                 {% if pending_users %}
-                    {% for user in pending_users %}
-                    <div class="border-bottom pb-2 mb-2">
-                        <strong>{{ user.username }}</strong><br>
-                        <small>{{ user.email }}</small>
-                        <div class="float-end">
-                            <a href="{{ url_for('approve_user', user_id=user.id) }}" 
-                               class="btn btn-sm btn-success">✅ Approve</a>
-                            <a href="{{ url_for('reject_user', user_id=user.id) }}" 
-                               class="btn btn-sm btn-danger">❌ Reject</a>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Registered</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in pending_users %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                                    <td>
+                                        <a href="{{ url_for('approve_user', user_id=user.id) }}" 
+                                           class="btn btn-sm btn-success">✅ Approve</a>
+                                        <a href="{{ url_for('reject_user', user_id=user.id) }}" 
+                                           class="btn btn-sm btn-danger"
+                                           onclick="return confirm('Are you sure you want to reject {{ user.username }}?')">❌ Reject</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
-                    {% endfor %}
                 {% else %}
                     <p class="text-muted">No pending approvals</p>
                 {% endif %}
@@ -29,6 +82,7 @@
         </div>
     </div>
     
+    <!-- Approved Users Section with Delete Option -->
     <div class="col-md-6">
         <div class="card mb-3">
             <div class="card-header bg-success text-white">
@@ -36,11 +90,40 @@
             </div>
             <div class="card-body">
                 {% if approved_users %}
-                    <ul class="list-unstyled">
-                        {% for user in approved_users %}
-                            <li>• {{ user.username }} - {{ user.email }}</li>
-                        {% endfor %}
-                    </ul>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Emails Sent</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in approved_users %}
+                                <tr>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        {% set user_campaigns = campaigns|selectattr("user_id", "equalto", user.id)|list %}
+                                        {% set total_sent = user_campaigns|sum(attribute="sent_count") %}
+                                        <span class="badge bg-info">{{ total_sent }}</span>
+                                    </td>
+                                    <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                                    <td>
+                                        <a href="{{ url_for('view_user_campaigns', user_id=user.id) }}" 
+                                           class="btn btn-sm btn-info">📊 View</a>
+                                        <a href="{{ url_for('delete_user', user_id=user.id) }}" 
+                                           class="btn btn-sm btn-danger"
+                                           onclick="return confirm('⚠️ Delete {{ user.username }}? This will delete ALL their campaigns and logs!')">🗑️ Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 {% else %}
                     <p class="text-muted">No approved users yet</p>
                 {% endif %}
@@ -49,9 +132,11 @@
     </div>
 </div>
 
+<!-- All Campaigns Section -->
 <div class="card">
     <div class="card-header">
         <h5>📊 All Campaigns</h5>
+        <small>Last 50 campaigns</small>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -59,17 +144,20 @@
                 <thead>
                     <tr>
                         <th>User</th>
+                        <th>Campaign</th>
                         <th>Subject</th>
                         <th>Sent/Failed</th>
                         <th>Status</th>
                         <th>Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for campaign in campaigns %}
                     <tr>
                         <td>{{ campaign.user.username }}</td>
-                        <td>{{ campaign.subject[:40] }}...</td>
+                        <td>{{ campaign.campaign_name[:20] }}</td>
+                        <td>{{ campaign.subject[:30] }}...</td>
                         <td>{{ campaign.sent_count }}/{{ campaign.failed_count }}</td>
                         <td>
                             <span class="badge bg-{{ 'success' if campaign.status == 'completed' else 'warning' if campaign.status == 'sending' else 'secondary' }}">
@@ -77,10 +165,33 @@
                             </span>
                         </td>
                         <td>{{ campaign.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <a href="{{ url_for('view_logs', campaign_id=campaign.id) }}" 
+                               class="btn btn-sm btn-info">Details</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No campaigns yet</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>⚡ Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('export_users') }}" class="btn btn-secondary">📥 Export Users (CSV)</a>
+                <a href="{{ url_for('admin_dashboard') }}" class="btn btn-primary">🔄 Refresh</a>
+            </div>
         </div>
     </div>
 </div>
