@@ -35,10 +35,74 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# ============= AUTO-CREATE DATABASE TABLES ON STARTUP =============
+with app.app_context():
+    db.create_all()
+    print("✅ Database tables ready")
+    
+    # Create admin if doesn't exist
+    admin = User.query.filter_by(username='admin').first()
+    if not admin:
+        admin = User(
+            username='admin',
+            email='admin@example.com',
+            password_hash=generate_password_hash('admin123'),
+            is_admin=True,
+            is_approved=True
+        )
+        db.session.add(admin)
+        db.session.commit()
+        print("✅ Admin user created!")
+    else:
+        print("✅ Admin user already exists")
+
 # ============= PUBLIC ROUTES =============
 @app.route('/')
 def index():
     return redirect(url_for('login'))
+
+@app.route('/create-db')
+def create_db():
+    """Manual database creation endpoint - visit this if database isn't working"""
+    try:
+        with app.app_context():
+            db.create_all()
+            
+            # Create admin if doesn't exist
+            admin = User.query.filter_by(username='admin').first()
+            if not admin:
+                admin = User(
+                    username='admin',
+                    email='admin@example.com',
+                    password_hash=generate_password_hash('admin123'),
+                    is_admin=True,
+                    is_approved=True
+                )
+                db.session.add(admin)
+                db.session.commit()
+                return """
+                <h2>✅ Database Created Successfully!</h2>
+                <p>Admin credentials:</p>
+                <ul>
+                    <li><strong>Username:</strong> admin</li>
+                    <li><strong>Password:</strong> admin123</li>
+                </ul>
+                <br>
+                <a href='/login'>Click here to login →</a>
+                """
+            else:
+                return """
+                <h2>✅ Database Already Exists!</h2>
+                <p>Admin credentials:</p>
+                <ul>
+                    <li><strong>Username:</strong> admin</li>
+                    <li><strong>Password:</strong> admin123</li>
+                </ul>
+                <br>
+                <a href='/login'>Click here to login →</a>
+                """
+    except Exception as e:
+        return f"<h2>❌ Error creating database:</h2><p>{str(e)}</p>"
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
