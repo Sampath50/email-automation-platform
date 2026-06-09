@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, Response
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import sys
 import os
+import io
+import csv
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -274,6 +276,100 @@ def reject_user(user_id):
     db.session.delete(user)
     db.session.commit()
     flash(f'User {user.username} has been rejected.', 'success')
+    return redirect(url_for('admin_dashboard'))
+
+# ============= NEW ADMIN FEATURES =============
+
+@app.route('/delete-user/<int:user_id>')
+@login_required
+def delete_user(user_id):
+    """Delete a user and all their data"""
+    if not current_user.is_admin:
+        flash('Unauthorized!', 'danger')
+        return redirect(url_for('user_dashboard'))
+    
+    user = User.query.get_or_404(user_id)
+    
+    # Don't allow deleting yourself
+    if user.id == current_user.id:
+        flash('You cannot delete your own admin account!', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    username = user.username
+    
+    # Delete user's campaigns and logs (cascade will handle)
+    db.session.delete(user)
+    db.session.commit()
+    
+    flash(f'User "{username}" has been permanently deleted!', 'success')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/view-user-campaigns/<int:user_id>')
+@login_required
+def view_user_campaigns(user_id):
+    """View all campaigns for a specific user"""
+    if not current_user.is_admin:
+        flash('Unauthorized!', 'danger')
+        return redirect(url_for('user_dashboard'))
+    
+    user = User.query.get_or_404(user_id)
+    campaigns = EmailCampaign.query.filter_by(user_id=user_id).order_by(EmailCampaign.created_at.desc()).all()
+    total_sent = sum(c.sent_count for c in campaigns)
+    
+    return render_template('user_campaigns.html', user=user, campaigns=campaigns, total_sent=total_sent)
+
+@app.route('/export-users')
+@login_required
+def export_users():
+    """Export all users as CSV"""
+    if not current_user.is_admin:
+        flash('Unauthorized!', 'danger')
+        return redirect(url_for('user_dashboard'))
+    
+    users = User.query.all()
+    
+    # Create CSV in memory
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(['Username', 'Email', 'Is Admin', 'Is Approved', 'Created At', 'Total Campaigns', 'Total Emails Sent'])
+    
+    for user in users:
+        campaigns = EmailCampaign.query.filter_by(user_id=user.id).all()
+        total_emails = sum(c.sent_count for c in campaigns)
+        writer.writerow([
+            user.username,
+            user.email,
+            'Yes' if user.is_admin else 'No',
+            'Yes' if user.is_approved else 'No',
+            user.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            len(campaigns),
+            total_emails
+        ])
+    
+    # Send as downloadable file
+    return Response(
+        output.getvalue(),
+        mimetype='text/csv',
+        headers={'Content-Disposition': 'attachment;filename=users_export.csv'}
+    )
+
+@app.route('/suspend-user/<int:user_id>')
+@login_required
+def suspend_user(user_id):
+    """Temporarily suspend a user (set approved=False)"""
+    if not current_user.is_admin:
+        flash('Unauthorized!', 'danger')
+        return redirect(url_for('user_dashboard'))
+    
+    user = User.query.get_or_404(user_id)
+    
+    if user.id == current_user.id:
+        flash('You cannot suspend yourself!', 'danger')
+        return redirect(url_for('admin_dashboard'))
+    
+    user.is_approved = False
+    db.session.commit()
+    flash(f'User "{user.username}" has been suspended!', 'warning')
     return redirect(url_for('admin_dashboard'))
 
 @app.route('/setup')
