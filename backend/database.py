@@ -9,12 +9,8 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(200), nullable=False)
-    is_super_admin = db.Column(db.Boolean, default=False)
-    is_approved = db.Column(db.Boolean, default=False)
-    email_address = db.Column(db.String(120))
-    email_password = db.Column(db.String(200))
-    smtp_server = db.Column(db.String(100), default='smtp.gmail.com')
-    smtp_port = db.Column(db.Integer, default=587)
+    is_admin = db.Column(db.Boolean, default=False)  # Super admin
+    is_approved = db.Column(db.Boolean, default=False)  # Can use platform?
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class EmailCampaign(db.Model):
@@ -24,6 +20,8 @@ class EmailCampaign(db.Model):
     csv_filename = db.Column(db.String(200))
     subject = db.Column(db.String(500))
     email_body = db.Column(db.Text)
+    sender_email = db.Column(db.String(200))
+    sender_password = db.Column(db.String(200))
     total_recipients = db.Column(db.Integer, default=0)
     sent_count = db.Column(db.Integer, default=0)
     failed_count = db.Column(db.Integer, default=0)

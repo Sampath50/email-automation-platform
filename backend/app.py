@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -23,7 +23,6 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///email_system.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
@@ -48,8 +47,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
         
-        existing_user = User.query.filter_by(username=username).first()
-        if existing_user:
+        if User.query.filter_by(username=username).first():
             flash('Username already exists!', 'danger')
             return redirect(url_for('register'))
         
@@ -57,13 +55,13 @@ def register():
             username=username,
             email=email,
             password_hash=generate_password_hash(password),
-            is_super_admin=False,
+            is_admin=False,
             is_approved=False
         )
         db.session.add(user)
         db.session.commit()
         
-        flash('Registration successful! Wait for admin approval.', 'success')
+        flash('Registration successful! Waiting for admin approval.', 'success')
         return redirect(url_for('login'))
     
     return render_template('register.html')
@@ -76,13 +74,13 @@ def login():
         user = User.query.filter_by(username=username).first()
         
         if user and check_password_hash(user.password_hash, password):
-            if not user.is_approved and not user.is_super_admin:
+            if not user.is_approved and not user.is_admin:
                 flash('Your account is pending admin approval!', 'warning')
                 return redirect(url_for('login'))
             login_user(user)
-            if user.is_super_admin:
+            if user.is_admin:
                 return redirect(url_for('admin_dashboard'))
-            return redirect(url_for('send_email'))
+            return redirect(url_for('user_dashboard'))
         else:
             flash('Invalid username or password', 'danger')
     
@@ -95,10 +93,10 @@ def logout():
     return redirect(url_for('login'))
 
 # ============= USER ROUTES =============
-@app.route('/send-email', methods=['GET', 'POST'])
+@app.route('/user-dashboard', methods=['GET', 'POST'])
 @login_required
-def send_email():
-    if current_user.is_super_admin:
+def user_dashboard():
+    if current_user.is_admin:
         return redirect(url_for('admin_dashboard'))
     
     if not current_user.is_approved:
@@ -106,15 +104,12 @@ def send_email():
         return redirect(url_for('logout'))
     
     if request.method == 'POST':
-        email_address = request.form['email_address']
-        email_password = request.form['email_password']
+        # Get user's email credentials and campaign details
+        sender_email = request.form['sender_email']
+        sender_password = request.form['sender_password']
         subject = request.form['subject']
         email_body = request.form['email_body']
         file = request.files['csv_file']
-        
-        current_user.email_address = email_address
-        current_user.email_password = email_password
-        db.session.commit()
         
         if file and file.filename.endswith('.csv'):
             filename = secure_filename(f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{file.filename}")
@@ -126,10 +121,12 @@ def send_email():
             
             campaign = EmailCampaign(
                 user_id=current_user.id,
-                campaign_name=f"Campaign_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+                campaign_name=f"{current_user.username}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
                 csv_filename=filename,
                 subject=subject,
                 email_body=email_body,
+                sender_email=sender_email,
+                sender_password=sender_password,  # In production, encrypt this!
                 total_recipients=total_recipients,
                 status='pending'
             )
@@ -137,55 +134,51 @@ def send_email():
             db.session.commit()
             
             smtp_config = {
-                'server': current_user.smtp_server or 'smtp.gmail.com',
-                'port': current_user.smtp_port or 587,
-                'email': email_address,
-                'password': email_password,
+                'server': 'smtp.gmail.com',
+                'port': 587,
+                'email': sender_email,
+                'password': sender_password,
                 'delay': 4
             }
             
             thread = threading.Thread(target=send_emails_async, args=(app, campaign.id, smtp_config, df))
             thread.start()
             
-            flash('Email campaign started! Check logs for progress.', 'success')
+            flash('Email campaign started! You will see results in Campaign Logs.', 'success')
             return redirect(url_for('campaign_logs'))
     
-    return render_template('send_email.html')
+    return render_template('user_dashboard.html')
 
 @app.route('/campaign-logs')
 @login_required
 def campaign_logs():
-    if current_user.is_super_admin:
+    if current_user.is_admin:
         campaigns = EmailCampaign.query.order_by(EmailCampaign.created_at.desc()).all()
     else:
         campaigns = EmailCampaign.query.filter_by(user_id=current_user.id).order_by(EmailCampaign.created_at.desc()).all()
     return render_template('campaign_logs.html', campaigns=campaigns)
 
-# ============= THIS IS THE ROUTE YOU NEED TO ADD =============
 @app.route('/view-logs/<int:campaign_id>')
 @login_required
 def view_logs(campaign_id):
     campaign = EmailCampaign.query.get_or_404(campaign_id)
-    
-    # Check if user has permission to view this campaign
-    if not current_user.is_super_admin and campaign.user_id != current_user.id:
-        flash('Unauthorized access!', 'danger')
+    if not current_user.is_admin and campaign.user_id != current_user.id:
+        flash('Unauthorized!', 'danger')
         return redirect(url_for('campaign_logs'))
     
     logs = EmailLog.query.filter_by(campaign_id=campaign_id).order_by(EmailLog.sent_at.desc()).all()
     return render_template('view_logs.html', campaign=campaign, logs=logs)
-# ============= END OF ADDED ROUTE =============
 
-# ============= SUPER ADMIN ROUTES =============
+# ============= ADMIN ROUTES =============
 @app.route('/admin')
 @login_required
 def admin_dashboard():
-    if not current_user.is_super_admin:
+    if not current_user.is_admin:
         flash('Unauthorized access!', 'danger')
-        return redirect(url_for('send_email'))
+        return redirect(url_for('user_dashboard'))
     
-    pending_users = User.query.filter_by(is_approved=False, is_super_admin=False).all()
-    approved_users = User.query.filter_by(is_approved=True, is_super_admin=False).all()
+    pending_users = User.query.filter_by(is_approved=False, is_admin=False).all()
+    approved_users = User.query.filter_by(is_approved=True, is_admin=False).all()
     all_campaigns = EmailCampaign.query.order_by(EmailCampaign.created_at.desc()).limit(50).all()
     
     return render_template('admin_dashboard.html', 
@@ -196,9 +189,9 @@ def admin_dashboard():
 @app.route('/approve-user/<int:user_id>')
 @login_required
 def approve_user(user_id):
-    if not current_user.is_super_admin:
+    if not current_user.is_admin:
         flash('Unauthorized!', 'danger')
-        return redirect(url_for('send_email'))
+        return redirect(url_for('user_dashboard'))
     
     user = User.query.get_or_404(user_id)
     user.is_approved = True
@@ -209,31 +202,31 @@ def approve_user(user_id):
 @app.route('/reject-user/<int:user_id>')
 @login_required
 def reject_user(user_id):
-    if not current_user.is_super_admin:
+    if not current_user.is_admin:
         flash('Unauthorized!', 'danger')
-        return redirect(url_for('send_email'))
+        return redirect(url_for('user_dashboard'))
     
     user = User.query.get_or_404(user_id)
     db.session.delete(user)
     db.session.commit()
-    flash(f'User {user.username} has been rejected and removed.', 'success')
+    flash(f'User {user.username} has been rejected.', 'success')
     return redirect(url_for('admin_dashboard'))
 
 @app.route('/setup')
 def setup():
-    admin = User.query.filter_by(username='superadmin').first()
+    admin = User.query.filter_by(is_admin=True).first()
     if not admin:
         admin = User(
-            username='superadmin',
+            username='admin',
             email='admin@example.com',
             password_hash=generate_password_hash('admin123'),
-            is_super_admin=True,
+            is_admin=True,
             is_approved=True
         )
         db.session.add(admin)
         db.session.commit()
-        return "Super Admin created! Username: superadmin, Password: admin123"
-    return "Super Admin already exists!"
+        return "Admin created! Username: admin, Password: admin123"
+    return "Admin already exists!"
 
 if __name__ == '__main__':
     with app.app_context():

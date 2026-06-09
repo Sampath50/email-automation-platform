@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Send Email Campaign</h4>
+                <small>Emails will be sent from YOUR Gmail account</small>
+            </div>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Your Gmail Address</label>
+                        <input type="email" name="sender_email" class="form-control" 
+                               placeholder="youremail@gmail.com" required>
+                        <small class="text-muted">Emails will be sent from this address</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Gmail App Password</label>
+                        <input type="password" name="sender_password" class="form-control" 
+                               placeholder="16-character app password" required>
+                        <small class="text-muted">
+                            <a href="https://myaccount.google.com/apppasswords" target="_blank">
+                                How to generate App Password?
+                            </a>
+                        </small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email Subject</label>
+                        <input type="text" name="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email Body</label>
+                        <textarea name="email_body" rows="8" class="form-control" required>Dear {name},
+
+Greetings from our team!
+
+We are excited to connect with you.
+
+Best regards,
+{{ current_user.username }}</textarea>
+                        <small class="text-muted">Use {name} to insert recipient's name</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Upload CSV File</label>
+                        <input type="file" name="csv_file" class="form-control" accept=".csv" required>
+                        <small class="text-muted">
+                            CSV must have columns: <strong>author</strong> (name) and <strong>email</strong>
+                        </small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-paper-plane"></i> Send Campaign
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6>📋 Instructions:</h6>
+                <ol class="small">
+                    <li>Use your own Gmail address (no need to share with admin)</li>
+                    <li>Generate App Password from your Google Account</li>
+                    <li>Upload CSV with columns: author, email</li>
+                    <li>Write your email content - use {name} for personalized greetings</li>
+                    <li>Click Send - emails will be sent from YOUR Gmail</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

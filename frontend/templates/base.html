@@ -17,12 +17,12 @@
                     <small class="text-white-50">{{ current_user.username }}</small>
                 </div>
                 <nav class="nav flex-column">
-                    {% if current_user.is_super_admin %}
+                    {% if current_user.is_admin %}
                         <a class="nav-link text-white" href="{{ url_for('admin_dashboard') }}">
                             <i class="fas fa-tachometer-alt"></i> Admin Dashboard
                         </a>
                     {% else %}
-                        <a class="nav-link text-white" href="{{ url_for('send_email') }}">
+                        <a class="nav-link text-white" href="{{ url_for('user_dashboard') }}">
                             <i class="fas fa-paper-plane"></i> Send Email
                         </a>
                     {% endif %}
