@@ -22,9 +22,16 @@ app = Flask(__name__,
             template_folder='../frontend/templates',
             static_folder='../frontend/static')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///email_system.db'
+
+# ============= POSTGRESQL DATABASE CONFIGURATION =============
+# Use PostgreSQL if DATABASE_URL exists, otherwise fallback to SQLite
+database_url = os.getenv('DATABASE_URL', 'sqlite:///email_system.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
+
+# Print which database is being used (for debugging)
+print(f"📊 Using database: {database_url[:50]}..." if database_url.startswith('postgresql') else "📊 Using SQLite database")
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
