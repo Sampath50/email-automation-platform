@@ -23,9 +23,9 @@ app = Flask(__name__,
             static_folder='../frontend/static')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your-secret-key')
 
-# ============= POSTGRESQL DATABASE CONFIGURATION =============
-# Use PostgreSQL if DATABASE_URL exists, otherwise fallback to SQLite
-database_url = os.getenv('DATABASE_URL', 'sqlite:///email_system.db')
+# ============= DATABASE CONFIGURATION =============
+# Using SQLite for now
+database_url = 'sqlite:///email_system.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
