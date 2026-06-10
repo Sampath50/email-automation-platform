@@ -7,9 +7,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Dark/Light Mode Toggle Button -->
+    <div class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -24,7 +32,10 @@
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
                     <li class="nav-item"><a class="btn btn-primary ms-3" href="https://email-automation-platform.onrender.com/register">Get Started →</a></li>
                 </ul>
             </div>
@@ -35,23 +46,23 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="row align-items-center min-vh-100">
-                <div class="col-lg-6">
-                    <div class="badge mb-3">🚀 Launch Your Campaigns Today</div>
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="badge mb-3">🔥 Launch Your Campaigns Today</div>
                     <h1 class="display-3 fw-bold mb-4">Send Email Campaigns Using <span class="text-gradient">Your Own Gmail</span></h1>
                     <p class="lead mb-4 text-muted">No shared credentials. No complicated setup. Just upload your CSV and send emails from YOUR Gmail account with our powerful automation platform.</p>
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 flex-wrap">
                         <a href="https://email-automation-platform.onrender.com/register" class="btn btn-primary btn-lg">Start Free Trial <i class="fas fa-arrow-right"></i></a>
-                        <a href="#features" class="btn btn-outline-secondary btn-lg">Watch Demo <i class="fas fa-play"></i></a>
+                        <button class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#demoModal">Watch Demo <i class="fas fa-play"></i></button>
                     </div>
                     <div class="mt-4">
-                        <div class="d-flex gap-4">
+                        <div class="d-flex gap-4 flex-wrap">
                             <div><i class="fas fa-check-circle text-primary"></i> No credit card required</div>
                             <div><i class="fas fa-check-circle text-primary"></i> 14-day free trial</div>
                             <div><i class="fas fa-check-circle text-primary"></i> Cancel anytime</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-left">
                     <div class="hero-image">
                         <div class="dashboard-preview">
                             <div class="preview-header">
@@ -72,16 +83,48 @@
         </div>
     </section>
 
+    <!-- Stats Counter Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 col-6" data-aos="zoom-in">
+                    <div class="stat-box">
+                        <div class="stat-number counter" data-target="5000">0</div>
+                        <p>Active Users</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-box">
+                        <div class="stat-number counter" data-target="100000">0</div>
+                        <p>Emails Sent</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-box">
+                        <div class="stat-number counter" data-target="98">0</div>
+                        <p>Delivery Rate</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-box">
+                        <div class="stat-number counter" data-target="24">0</div>
+                        <p/7 Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section id="features" class="features">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5" data-aos="fade-up">
                 <div class="badge mb-2">Why Choose Us</div>
                 <h2 class="display-5 fw-bold mb-3">Everything You Need for <br>Successful Email Marketing</h2>
                 <p class="lead text-muted">Powerful features to help you run effective email campaigns</p>
             </div>
             <div class="row g-4">
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-user-shield"></i>
@@ -90,7 +133,7 @@
                         <p>Emails are sent from YOUR Gmail account. No shared credentials, complete privacy.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-rocket"></i>
@@ -99,7 +142,7 @@
                         <p>Send thousands of emails with smart delays to avoid spam filters and ensure delivery.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-chart-line"></i>
@@ -108,7 +151,7 @@
                         <p>Track campaigns in real-time. See delivery rates, opens, and performance metrics.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-file-csv"></i>
@@ -117,7 +160,7 @@
                         <p>Upload your contact list and send personalized emails in minutes.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-tachometer-alt"></i>
@@ -126,7 +169,7 @@
                         <p>Monitor delivery status, failures, and engagement in real-time.</p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-headset"></i>
@@ -142,13 +185,13 @@
     <!-- How It Works -->
     <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5" data-aos="fade-up">
                 <div class="badge mb-2">Simple Process</div>
                 <h2 class="display-5 fw-bold mb-3">Get Started in 4 Easy Steps</h2>
                 <p class="lead text-muted">From registration to sending your first campaign</p>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                     <div class="step-card">
                         <div class="step-number">01</div>
                         <div class="step-icon"><i class="fas fa-user-plus"></i></div>
@@ -156,7 +199,7 @@
                         <p>Register for free in 30 seconds</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
                     <div class="step-card">
                         <div class="step-number">02</div>
                         <div class="step-icon"><i class="fas fa-check-double"></i></div>
@@ -164,7 +207,7 @@
                         <p>Admin approves your account quickly</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
                     <div class="step-card">
                         <div class="step-number">03</div>
                         <div class="step-icon"><i class="fas fa-upload"></i></div>
@@ -172,7 +215,7 @@
                         <p>Import your CSV file</p>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
                     <div class="step-card">
                         <div class="step-number">04</div>
                         <div class="step-icon"><i class="fas fa-paper-plane"></i></div>
@@ -184,16 +227,74 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <div class="badge mb-2">Trusted by Users</div>
+                <h2 class="display-5 fw-bold mb-3">What Our Customers Say</h2>
+                <p class="lead text-muted">Join thousands of satisfied users worldwide</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"EmailAuto has transformed how I send campaigns. Being able to use my own Gmail gives me complete control!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Sarah Johnson">
+                            <div>
+                                <h6>Sarah Johnson</h6>
+                                <small>Marketing Director</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"The best email marketing tool I've used. Simple, effective, and the support team is amazing!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="David Chen">
+                            <div>
+                                <h6>David Chen</h6>
+                                <small>Business Owner</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Finally a platform that respects my privacy. I use my own Gmail, and the analytics are fantastic!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Emily Rodriguez">
+                            <div>
+                                <h6>Emily Rodriguez</h6>
+                                <small>Freelancer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Pricing Section -->
     <section id="pricing" class="pricing">
         <div class="container">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5" data-aos="fade-up">
                 <div class="badge mb-2">Pricing</div>
                 <h2 class="display-5 fw-bold mb-3">Simple, Transparent Pricing</h2>
                 <p class="lead text-muted">Choose the plan that works for you</p>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="pricing-card">
                         <div class="pricing-header">
                             <h4>Starter</h4>
@@ -211,7 +312,7 @@
                         <a href="https://email-automation-platform.onrender.com/register" class="btn btn-outline-primary w-100">Get Started</a>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="pricing-card popular">
                         <div class="popular-badge">Most Popular</div>
                         <div class="pricing-header">
@@ -231,7 +332,7 @@
                         <a href="https://email-automation-platform.onrender.com/register" class="btn btn-primary w-100">Start Free Trial</a>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="pricing-card">
                         <div class="pricing-header">
                             <h4>Enterprise</h4>
@@ -247,7 +348,147 @@
                                 <li><i class="fas fa-check"></i> Onboarding training</li>
                             </ul>
                         </div>
-                        <a href="#contact" class="btn btn-outline-primary w-100">Contact Sales</a>
+                        <button class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <div class="badge mb-2">FAQ</div>
+                <h2 class="display-5 fw-bold mb-3">Frequently Asked Questions</h2>
+                <p class="lead text-muted">Got questions? We've got answers</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item" data-aos="fade-up">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    Do I need to share my Gmail password with you?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    No! You use your own Gmail app password directly in the platform. We never store or have access to your credentials. Emails are sent directly from your Gmail account through Google's secure servers.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    How many emails can I send per day?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    With free Gmail accounts, you can send up to 500 emails per day. With Google Workspace, you can send up to 2,000 emails per day. Our platform respects these limits to keep your account safe.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    Is my data secure?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely! We use industry-standard encryption for all data. Your email list is only used for your campaigns, and we never share or sell your data to third parties.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Can I cancel my subscription anytime?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! You can cancel your subscription at any time with no hidden fees. Your data will be available for export before cancellation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-box" data-aos="fade-up">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h3>Stay Updated!</h3>
+                        <p>Subscribe to our newsletter for tips, updates, and exclusive offers.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <form id="newsletterForm" class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                                <button class="btn btn-primary" type="submit">Subscribe <i class="fas fa-paper-plane"></i></button>
+                            </div>
+                            <small class="text-muted">We respect your privacy. No spam, ever.</small>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <div class="badge mb-2">Latest Updates</div>
+                <h2 class="display-5 fw-bold mb-3">From Our Blog</h2>
+                <p class="lead text-muted">Tips, guides, and announcements</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-date">June 10, 2026</div>
+                            <h5>10 Tips to Improve Email Deliverability</h5>
+                            <p>Learn how to avoid spam folders and improve your email open rates.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-date">June 8, 2026</div>
+                            <h5>How to Track Email Campaign Performance</h5>
+                            <p>Key metrics you should monitor for successful campaigns.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-date">June 5, 2026</div>
+                            <h5>New Features: Analytics Dashboard Update</h5>
+                            <p>Check out our new real-time analytics dashboard.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -258,13 +499,45 @@
     <section class="cta">
         <div class="container">
             <div class="row justify-content-center text-center">
-                <div class="col-lg-8">
+                <div class="col-lg-8" data-aos="fade-up">
                     <h2 class="display-5 fw-bold mb-3">Ready to Transform Your Email Marketing?</h2>
                     <p class="lead mb-4">Join thousands of satisfied users who trust EmailAuto for their campaigns</p>
-                    <div class="d-flex gap-3 justify-content-center">
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
                         <a href="https://email-automation-platform.onrender.com/register" class="btn btn-light btn-lg">Get Started Now <i class="fas fa-arrow-right"></i></a>
-                        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+                        <button class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Sales</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-badges">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-2 col-4" data-aos="fade-up">
+                    <i class="fab fa-google"></i>
+                    <span>Google Workspace</span>
+                </div>
+                <div class="col-md-2 col-4" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>GDPR Compliant</span>
+                </div>
+                <div class="col-md-2 col-4" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-lock"></i>
+                    <span>256-bit SSL</span>
+                </div>
+                <div class="col-md-2 col-4" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Stripe Secure</span>
+                </div>
+                <div class="col-md-2 col-4" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-headset"></i>
+                    <span>24/7 Support</span>
+                </div>
+                <div class="col-md-2 col-4" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>99.9% Uptime</span>
                 </div>
             </div>
         </div>
@@ -281,6 +554,7 @@
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-linkedin"></i></a>
                         <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -289,30 +563,34 @@
                         <li><a href="#features">Features</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <h6>Company</h6>
                     <ul>
                         <li><a href="#">About Us</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="#blog">Blog</a></li>
                         <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <h6>Support</h6>
                     <ul>
                         <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact Us</button></li>
                         <li><a href="#">API Docs</a></li>
+                        <li><a href="#">Status</a></li>
                     </ul>
                 </div>
                 <div class="col-md-2">
                     <h6>Legal</h6>
                     <ul>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
                         <li><a href="#">Security</a></li>
+                        <li><a href="#">GDPR</a></li>
                     </ul>
                 </div>
             </div>
@@ -323,6 +601,62 @@
         </div>
     </footer>
 
+    <!-- Demo Video Modal -->
+    <div class="modal fade" id="demoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Watch Demo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <i class="fas fa-play-circle" style="font-size: 80px; color: #667eea;"></i>
+                    <p class="mt-3">Demo video coming soon!</p>
+                    <p>Sign up to see how EmailAuto works.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Contact Sales</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-button">
+            <i class="fas fa-comment-dots"></i>
+            <span>Chat with us</span>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
