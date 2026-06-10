@@ -594,3 +594,244 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #667eea;
 }
+
+/* Additional Features CSS */
+
+/* Theme Toggle */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle i {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Stats Section */
+.stats {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 60px 0;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+/* Testimonials */
+.testimonials {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.stars {
+    color: #ffc107;
+    margin-bottom: 15px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.testimonial-author img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* FAQ Section */
+.faq {
+    padding: 80px 0;
+    background: white;
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 15px;
+    border-radius: 15px !important;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.accordion-button {
+    background: white;
+    font-weight: 600;
+    padding: 20px;
+}
+
+.accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+    color: #667eea;
+}
+
+/* Newsletter */
+.newsletter {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.newsletter-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 50px;
+    border-radius: 30px;
+    color: white;
+}
+
+.newsletter-form .input-group {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.newsletter-form .form-control {
+    padding: 15px;
+    border: none;
+}
+
+/* Blog Section */
+.blog {
+    padding: 80px 0;
+    background: white;
+}
+
+.blog-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.blog-image {
+    background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
+    padding: 40px;
+    text-align: center;
+}
+
+.blog-image i {
+    font-size: 3rem;
+    color: #667eea;
+}
+
+.blog-content {
+    padding: 20px;
+}
+
+.blog-date {
+    font-size: 0.85rem;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.read-more {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Trust Badges */
+.trust-badges {
+    padding: 60px 0;
+    background: #f8fafc;
+}
+
+.trust-badges i {
+    font-size: 2rem;
+    color: #667eea;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.trust-badges span {
+    font-size: 0.85rem;
+    color: #4a5568;
+}
+
+/* Chat Widget */
+.chat-widget {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.chat-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px 20px;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.chat-button:hover {
+    transform: scale(1.05);
+}
+
+/* Dark Mode (Coming Soon) */
+body.dark-mode {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .newsletter-box {
+        padding: 30px;
+    }
+    
+    .trust-badges .col-4 {
+        margin-bottom: 20px;
+    }
+}
