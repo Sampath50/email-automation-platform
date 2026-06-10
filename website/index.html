@@ -3,109 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EmailAuto | Send Campaigns from Your Gmail</title>
+    <title>EmailAuto | Professional Email Marketing Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="fas fa-envelope"></i> EmailAuto
+                <i class="fas fa-envelope-open-text"></i> Email<span class="text-gradient">Auto</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
-                    <li class="nav-item"><a class="btn btn-primary ms-3" href="https://email-automation-platform.onrender.com/register">Get Started</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="btn btn-primary ms-3" href="https://email-automation-platform.onrender.com/register">Get Started →</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero">
+    <section id="home" class="hero">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center min-vh-100">
                 <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold">Send Email Campaigns <br>Using <span class="text-primary">Your Own Gmail</span></h1>
-                    <p class="lead mt-3">No shared credentials. No complicated setup. Just upload your CSV and send emails from YOUR Gmail account.</p>
-                    <div class="mt-4">
-                        <a href="https://email-automation-platform.onrender.com/register" class="btn btn-primary btn-lg">Get Started Free</a>
+                    <div class="badge mb-3">🚀 Launch Your Campaigns Today</div>
+                    <h1 class="display-3 fw-bold mb-4">Send Email Campaigns Using <span class="text-gradient">Your Own Gmail</span></h1>
+                    <p class="lead mb-4 text-muted">No shared credentials. No complicated setup. Just upload your CSV and send emails from YOUR Gmail account with our powerful automation platform.</p>
+                    <div class="d-flex gap-3">
+                        <a href="https://email-automation-platform.onrender.com/register" class="btn btn-primary btn-lg">Start Free Trial <i class="fas fa-arrow-right"></i></a>
+                        <a href="#features" class="btn btn-outline-secondary btn-lg">Watch Demo <i class="fas fa-play"></i></a>
                     </div>
-                    <div class="mt-3">
-                        <small class="text-muted">
-                            <i class="fas fa-check-circle text-success"></i> No credit card required
-                        </small>
+                    <div class="mt-4">
+                        <div class="d-flex gap-4">
+                            <div><i class="fas fa-check-circle text-primary"></i> No credit card required</div>
+                            <div><i class="fas fa-check-circle text-primary"></i> 14-day free trial</div>
+                            <div><i class="fas fa-check-circle text-primary"></i> Cancel anytime</div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="card shadow-lg border-0">
-                        <div class="card-body text-center">
-                            <i class="fas fa-envelope-open-text fa-5x text-primary mb-3"></i>
-                            <h4>Send Personalized Emails</h4>
-                            <p class="text-muted">Upload CSV → Write Content → Send Campaign</p>
+                    <div class="hero-image">
+                        <div class="dashboard-preview">
+                            <div class="preview-header">
+                                <div class="dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <div class="title">Dashboard Preview</div>
+                            </div>
+                            <div class="preview-content">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Campaign Analytics</h4>
+                                <p>Track your email performance</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </section>
 
     <!-- Features Section -->
-    <section id="features" class="features py-5">
+    <section id="features" class="features">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="fw-bold">Why Choose EmailAuto?</h2>
-                <p class="lead">The smartest way to send email campaigns</p>
+                <div class="badge mb-2">Why Choose Us</div>
+                <h2 class="display-5 fw-bold mb-3">Everything You Need for <br>Successful Email Marketing</h2>
+                <p class="lead text-muted">Powerful features to help you run effective email campaigns</p>
             </div>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4 shadow-sm">
-                        <i class="fas fa-user-shield fa-3x text-primary mb-3"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
                         <h4>Your Gmail, Your Control</h4>
-                        <p>Emails are sent from YOUR Gmail account. No shared credentials.</p>
+                        <p>Emails are sent from YOUR Gmail account. No shared credentials, complete privacy.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4 shadow-sm">
-                        <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
                         <h4>Fast & Reliable</h4>
-                        <p>Send thousands of emails with proper delays to avoid spam filters.</p>
+                        <p>Send thousands of emails with smart delays to avoid spam filters and ensure delivery.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4 shadow-sm">
-                        <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
                         <h4>Analytics Dashboard</h4>
-                        <p>Track your campaigns, see delivery rates, and monitor performance.</p>
+                        <p>Track campaigns in real-time. See delivery rates, opens, and performance metrics.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4 shadow-sm">
-                        <i class="fas fa-file-csv fa-3x text-primary mb-3"></i>
-                        <h4>CSV Upload</h4>
-                        <p>Simply upload your CSV file with contacts and send personalized emails.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-csv"></i>
+                        </div>
+                        <h4>Bulk CSV Upload</h4>
+                        <p>Upload your contact list and send personalized emails in minutes.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4 shadow-sm">
-                        <i class="fas fa-tachometer-alt fa-3x text-primary mb-3"></i>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
                         <h4>Real-time Tracking</h4>
-                        <p>See which emails were delivered and which failed instantly.</p>
+                        <p>Monitor delivery status, failures, and engagement in real-time.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card h-100 text-center p-4 shadow-sm">
-                        <i class="fas fa-headset fa-3x text-primary mb-3"></i>
-                        <h4>Admin Support</h4>
-                        <p>Get quick approval and support from our team.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>Priority Support</h4>
+                        <p>Get quick approval and 24/7 support from our dedicated team.</p>
                     </div>
                 </div>
             </div>
@@ -113,69 +140,184 @@
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works py-5 bg-light">
+    <section id="how-it-works" class="how-it-works">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="fw-bold">How It Works</h2>
-                <p class="lead">Get started in 4 simple steps</p>
+                <div class="badge mb-2">Simple Process</div>
+                <h2 class="display-5 fw-bold mb-3">Get Started in 4 Easy Steps</h2>
+                <p class="lead text-muted">From registration to sending your first campaign</p>
             </div>
-            <div class="row text-center">
+            <div class="row">
                 <div class="col-md-3">
-                    <div class="step-circle">1</div>
-                    <h5>Register</h5>
-                    <p>Create your free account</p>
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                        <h5>Create Account</h5>
+                        <p>Register for free in 30 seconds</p>
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="step-circle">2</div>
-                    <h5>Get Approved</h5>
-                    <p>Admin approves your account</p>
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <div class="step-icon"><i class="fas fa-check-double"></i></div>
+                        <h5>Get Approved</h5>
+                        <p>Admin approves your account quickly</p>
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="step-circle">3</div>
-                    <h5>Upload CSV</h5>
-                    <p>Add your contacts</p>
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <div class="step-icon"><i class="fas fa-upload"></i></div>
+                        <h5>Upload Contacts</h5>
+                        <p>Import your CSV file</p>
+                    </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="step-circle">4</div>
-                    <h5>Send Emails</h5>
-                    <p>Start your campaign</p>
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <div class="step-icon"><i class="fas fa-paper-plane"></i></div>
+                        <h5>Launch Campaign</h5>
+                        <p>Start sending emails instantly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="text-center mb-5">
+                <div class="badge mb-2">Pricing</div>
+                <h2 class="display-5 fw-bold mb-3">Simple, Transparent Pricing</h2>
+                <p class="lead text-muted">Choose the plan that works for you</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h4>Starter</h4>
+                            <div class="price">$0 <span>/month</span></div>
+                            <p>Perfect for beginners</p>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Up to 500 emails/day</li>
+                                <li><i class="fas fa-check"></i> Basic analytics</li>
+                                <li><i class="fas fa-check"></i> Email support</li>
+                                <li><i class="fas fa-check"></i> CSV upload</li>
+                            </ul>
+                        </div>
+                        <a href="https://email-automation-platform.onrender.com/register" class="btn btn-outline-primary w-100">Get Started</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">Most Popular</div>
+                        <div class="pricing-header">
+                            <h4>Professional</h4>
+                            <div class="price">$29 <span>/month</span></div>
+                            <p>For growing businesses</p>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Up to 5,000 emails/day</li>
+                                <li><i class="fas fa-check"></i> Advanced analytics</li>
+                                <li><i class="fas fa-check"></i> Priority support</li>
+                                <li><i class="fas fa-check"></i> API access</li>
+                                <li><i class="fas fa-check"></i> Team collaboration</li>
+                            </ul>
+                        </div>
+                        <a href="https://email-automation-platform.onrender.com/register" class="btn btn-primary w-100">Start Free Trial</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <div class="pricing-header">
+                            <h4>Enterprise</h4>
+                            <div class="price">Custom</div>
+                            <p>For large organizations</p>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Unlimited emails</li>
+                                <li><i class="fas fa-check"></i> Dedicated support</li>
+                                <li><i class="fas fa-check"></i> Custom integrations</li>
+                                <li><i class="fas fa-check"></i> SLA guarantee</li>
+                                <li><i class="fas fa-check"></i> Onboarding training</li>
+                            </ul>
+                        </div>
+                        <a href="#contact" class="btn btn-outline-primary w-100">Contact Sales</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta py-5 bg-primary text-white">
-        <div class="container text-center">
-            <h2 class="fw-bold">Ready to Start Sending?</h2>
-            <p class="lead mb-4">Join users who trust EmailAuto for their campaigns</p>
-            <a href="https://email-automation-platform.onrender.com/register" class="btn btn-light btn-lg">Get Started Now</a>
+    <section class="cta">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-3">Ready to Transform Your Email Marketing?</h2>
+                    <p class="lead mb-4">Join thousands of satisfied users who trust EmailAuto for their campaigns</p>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="https://email-automation-platform.onrender.com/register" class="btn btn-light btn-lg">Get Started Now <i class="fas fa-arrow-right"></i></a>
+                        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
+    <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>EmailAuto</h5>
-                    <p>Send email campaigns from your own Gmail account.</p>
+                    <h5><i class="fas fa-envelope-open-text"></i> Email<span class="text-gradient">Auto</span></h5>
+                    <p class="text-muted">Professional email marketing platform that puts you in control.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white-50">Home</a></li>
-                        <li><a href="#features" class="text-white-50">Features</a></li>
-                        <li><a href="#how-it-works" class="text-white-50">How It Works</a></li>
+                <div class="col-md-2">
+                    <h6>Product</h6>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5>Contact</h5>
-                    <p><i class="fas fa-envelope"></i> support@emailauto.com</p>
-                    <p><i class="fas fa-globe"></i> https://email-automation-platform.onrender.com</p>
+                <div class="col-md-2">
+                    <h6>Company</h6>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Support</h6>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">API Docs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6>Legal</h6>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="text-center mt-3">
+            <hr>
+            <div class="text-center">
                 <p class="mb-0">&copy; 2026 EmailAuto. All rights reserved.</p>
             </div>
         </div>
